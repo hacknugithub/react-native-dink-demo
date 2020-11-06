@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
@@ -15,22 +15,6 @@ import PetDetail from "./src/screens/PetDetail";
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
-
-function PetListWithContext() {
-  return (
-    <PetProvider>
-      <Pets />
-    </PetProvider>
-  );
-}
-
-function CreatePetsWithContext() {
-  return (
-    <PetProvider>
-      <CreatePets />
-    </PetProvider>
-  );
-}
 
 function HomeStackScreen() {
   return (
