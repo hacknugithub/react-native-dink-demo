@@ -1,15 +1,27 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 
-const PetDetail = () => {
-  const [title, detail] = this.props;
+import { Card, Title } from "react-native-paper";
+
+const PetDetail = ({ route }) => {
+  const { title, detail } = route.params;
   return (
-    <View>
-      <Text></Text>
-    </View>
+    <Card style={styles.card}>
+      <Card.Title title={title} />
+      <Card.Content>
+        <Title>{detail}</Title>
+      </Card.Content>
+    </Card>
   );
 };
 
 export default PetDetail;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  card: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    margin: 10,
+  },
+});

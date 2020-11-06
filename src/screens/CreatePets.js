@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, View } from "react-native";
 import CreatePetForm from "../components/CreatePetForm";
 import { Title } from "react-native-paper";
+import { PetContext } from "../context/PetContext";
+import { useNavigation } from "@react-navigation/native";
 
 const CreatePets = () => {
+  const [state, setState] = useContext(PetContext);
+  const navigation = useNavigation();
+
   const submitForm = (data) => {
-    console.log(data);
+    let update = [...state];
+    let ids = update.map((obj) => obj.id);
+    ids.sort((a, b) => b - a);
+
+    let updData = { ...data, id: ids[0] + 1 };
+
+    setState([...state, updData]);
+    navigation.navigate("Pets");
   };
 
   return (

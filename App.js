@@ -1,18 +1,36 @@
-import "react-native-gesture-handler";
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import "react-native-gesture-handler";
+
+import { PetProvider } from "./src/context/PetContext";
+
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { StyleSheet } from "react-native";
 import Pets from "./src/screens/Pets";
 import CreatePets from "./src/screens/CreatePets";
-import { Provider as PaperProvider } from "react-native-paper";
+import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import theme from "./Theme";
 import PetDetail from "./src/screens/PetDetail";
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
+
+function PetListWithContext() {
+  return (
+    <PetProvider>
+      <Pets />
+    </PetProvider>
+  );
+}
+
+function CreatePetsWithContext() {
+  return (
+    <PetProvider>
+      <CreatePets />
+    </PetProvider>
+  );
+}
 
 function HomeStackScreen() {
   return (
@@ -35,46 +53,50 @@ function HomeStackScreen() {
   );
 }
 
-export default function App() {
+function App() {
   return (
-    <PaperProvider>
-      <NavigationContainer>
-        <Tab.Navigator>
-          <Tab.Screen
-            name="Home"
-            component={HomeStackScreen}
-            options={{
-              tabBarLabel: "Pet Store",
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="home" color={color} size={26} />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="New"
-            component={CreatePets}
-            options={{
-              tabBarLabel: "New Pet",
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons
-                  name="plus-circle"
-                  color={color}
-                  size={26}
-                />
-              ),
-            }}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </PaperProvider>
+    <NavigationContainer>
+      <Tab.Navigator
+        initialRouteName="Home"
+        backBehavior="initialRoute"
+        shifting={true}
+        barStyle={{ backgroundColor: DefaultTheme.colors.primary }}
+      >
+        <Tab.Screen
+          name="Home"
+          component={HomeStackScreen}
+          options={{
+            tabBarLabel: "Pet Store",
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="home" color={color} size={26} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="New"
+          component={CreatePets}
+          options={{
+            tabBarLabel: "New Pet",
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons
+                name="plus-circle"
+                color={color}
+                size={26}
+              />
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+export default () => {
+  return (
+    <PetProvider>
+      <PaperProvider>
+        <App />
+      </PaperProvider>
+    </PetProvider>
+  );
+};

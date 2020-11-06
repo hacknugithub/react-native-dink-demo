@@ -18,7 +18,7 @@ const CreatePetForm = ({ submitForm }) => {
       valid = false;
       setTagError("Please provide a name");
     }
-    let data = { name: name, tag: tag };
+    let data = { title: name, tag: tag };
     if (valid) {
       submitForm(data);
       setNameError(undefined);
@@ -47,7 +47,12 @@ const CreatePetForm = ({ submitForm }) => {
         error={tagError != undefined ? true : false}
         style={styles.input}
       />
-      <Button icon="send" mode="contained" onPress={handleSubmit}>
+      <Button
+        icon="send"
+        mode="contained"
+        onPress={handleSubmit}
+        style={styles.input}
+      >
         {" "}
         Submit
       </Button>

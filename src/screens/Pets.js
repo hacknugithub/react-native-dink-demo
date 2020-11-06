@@ -1,22 +1,18 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
+import { StyleSheet, ScrollView } from "react-native";
+import { List } from "react-native-paper";
 import PetList from "../components/PetList";
-
-const dummyItems = [
-  { id: 0, title: "Garfield", tag: "cats" },
-  { id: 1, title: "Garfield2", tag: "cats" },
-  { id: 2, title: "Garfield3", tag: "cats" },
-  { id: 3, title: "Garfield4", tag: "cats" },
-  { id: 4, title: "Garfield5", tag: "cats" },
-  { id: 5, title: "Garfield6", tag: "cats" },
-  { id: 6, title: "Garfield7", tag: "cats" },
-];
+import { PetContext } from "../context/PetContext";
 
 const Pets = () => {
+  const [state] = useContext(PetContext);
+
   return (
-    <View>
-      <PetList items={dummyItems} />
-    </View>
+    <ScrollView>
+      <List.Section>
+        <PetList items={state} />
+      </List.Section>
+    </ScrollView>
   );
 };
 
